@@ -1,4 +1,5 @@
 import {
+  List,
   ListItem,
   Tab,
   TabList,
@@ -8,6 +9,7 @@ import {
   UnorderedList,
   VStack,
 } from "@chakra-ui/react";
+import TaskBox from "../components/TaskBox";
 
 const TasksPage = () => {
   return (
@@ -19,17 +21,15 @@ const TasksPage = () => {
         </TabList>
         <TabPanels>
           <TabPanel>
-            <UnorderedList>
-              <ListItem>Task 1</ListItem>
-              <ListItem>Task 2</ListItem>
-              <ListItem>Task 3</ListItem>
-            </UnorderedList>
+            <VStack>
+              <TaskBox />
+              <TaskBox />
+            </VStack>
           </TabPanel>
           <TabPanel>
-            <UnorderedList>
-              <ListItem>Task 4</ListItem>
-              <ListItem>Task 5</ListItem>
-            </UnorderedList>
+            <VStack>
+              <TaskBox />
+            </VStack>
           </TabPanel>
         </TabPanels>
       </Tabs>
