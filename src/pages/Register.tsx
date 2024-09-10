@@ -6,22 +6,31 @@ import {
   Text,
   VStack,
 } from "@chakra-ui/react";
+import axios from "axios";
 import { FormEvent, useRef } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const Register = () => {
   const nameRef = useRef<HTMLInputElement>(null);
   const emailRef = useRef<HTMLInputElement>(null);
   const passwordRef = useRef<HTMLInputElement>(null);
 
+  const navigate = useNavigate();
+
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
     const user = {
-      name: nameRef.current?.value,
+      firstName: nameRef.current?.value,
       email: emailRef.current?.value,
       password: passwordRef.current?.value,
     };
-    console.log(user); //TODO: Send user details to the backend
+
+    axios
+      .post("http://localhost:3000/auth/register", user)
+      .then((res) => {
+        if (res.data) navigate("/");
+      })
+      .catch((err) => console.error(err));
   };
 
   return (

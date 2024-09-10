@@ -1,17 +1,19 @@
 import {
-  VStack,
+  Button,
   FormControl,
   FormLabel,
   Input,
-  Button,
   Text,
+  VStack,
 } from "@chakra-ui/react";
-import { useRef, FormEvent } from "react";
-import { Link } from "react-router-dom";
+import axios from "axios";
+import { FormEvent, useRef } from "react";
+import { Link, useNavigate } from "react-router-dom";
 
 const Login = () => {
   const emailRef = useRef<HTMLInputElement>(null);
   const passwordRef = useRef<HTMLInputElement>(null);
+  const navigate = useNavigate();
 
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
@@ -19,7 +21,13 @@ const Login = () => {
       email: emailRef.current?.value,
       password: passwordRef.current?.value,
     };
-    console.log(user); //TODO: Send user details to the backend
+
+    axios
+      .post("http://localhost:3000/auth/login", user)
+      .then((res) => {
+        if (res.data) navigate("/");
+      })
+      .catch((err) => console.error(err));
   };
 
   return (

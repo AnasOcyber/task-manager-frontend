@@ -3,8 +3,8 @@ import { Link } from "react-router-dom";
 
 const HomePage = () => {
   return (
-    <VStack>
-      <Heading>Task Manager</Heading>
+    <VStack marginTop={10}>
+      <Heading marginBottom={5}>Task Manager</Heading>
       <Button colorScheme="green">
         <Link to="/register">Get Started</Link>
       </Button>
