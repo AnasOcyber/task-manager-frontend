@@ -21,8 +21,8 @@ interface Task {
 const TasksPage = () => {
   const [tasks, setTasks] = useState<Task[]>([]);
 
-  const completedTasks = tasks.filter((t) => t.isCompleted);
-  const pendingTasks = tasks.filter((t) => !t.isCompleted);
+  const completedTasks = tasks.filter((t) => !t.isCompleted);
+  const pendingTasks = tasks.filter((t) => t.isCompleted);
 
   useEffect(() => {
     axios
@@ -44,6 +44,7 @@ const TasksPage = () => {
               {completedTasks.map((task) => (
                 <TaskBox
                   key={task.id}
+                  id={task.id}
                   title={task.title}
                   description={task.description}
                 />
@@ -55,6 +56,7 @@ const TasksPage = () => {
               {pendingTasks.map((task) => (
                 <TaskBox
                   key={task.id}
+                  id={task.id}
                   title={task.title}
                   description={task.description}
                 />

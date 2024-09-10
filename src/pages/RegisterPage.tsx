@@ -10,7 +10,7 @@ import axios from "axios";
 import { FormEvent, useRef } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
-const Register = () => {
+const RegisterPage = () => {
   const nameRef = useRef<HTMLInputElement>(null);
   const emailRef = useRef<HTMLInputElement>(null);
   const passwordRef = useRef<HTMLInputElement>(null);
@@ -61,4 +61,4 @@ const Register = () => {
   );
 };
 
-export default Register;
+export default RegisterPage;
