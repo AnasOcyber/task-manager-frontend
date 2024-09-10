@@ -16,7 +16,7 @@ import {
 import axios from "axios";
 import { useRef } from "react";
 
-const CreateTaskModal = () => {
+const CreateTask = () => {
   const titleRef = useRef<HTMLInputElement>(null);
   const descriptionRef = useRef<HTMLTextAreaElement>(null);
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -68,4 +68,4 @@ const CreateTaskModal = () => {
   );
 };
 
-export default CreateTaskModal;
+export default CreateTask;

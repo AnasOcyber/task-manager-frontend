@@ -6,10 +6,10 @@ import {
   Tabs,
   VStack,
 } from "@chakra-ui/react";
-import axios from "axios";
 import { useEffect, useState } from "react";
-import CreateTaskModal from "../components/CreateTaskModal";
+import CreateTask from "../components/CreateTask";
 import TaskBox from "../components/TaskBox";
+import apiClient from "../services/apiClient";
 
 interface Task {
   id: number;
@@ -25,8 +25,8 @@ const TasksPage = () => {
   const pendingTasks = tasks.filter((t) => t.isCompleted);
 
   useEffect(() => {
-    axios
-      .get("http://localhost:3000/tasks")
+    apiClient
+      .get("tasks")
       .then((res) => setTasks(res.data))
       .catch((err) => console.error(err));
   }, []);
@@ -65,7 +65,7 @@ const TasksPage = () => {
           </TabPanel>
         </TabPanels>
       </Tabs>
-      <CreateTaskModal />
+      <CreateTask />
     </VStack>
   );
 };

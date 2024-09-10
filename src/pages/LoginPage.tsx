@@ -6,9 +6,9 @@ import {
   Text,
   VStack,
 } from "@chakra-ui/react";
-import axios from "axios";
 import { FormEvent, useRef } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import apiClient from "../services/apiClient";
 
 const LoginPage = () => {
   const emailRef = useRef<HTMLInputElement>(null);
@@ -22,8 +22,8 @@ const LoginPage = () => {
       password: passwordRef.current?.value,
     };
 
-    axios
-      .post("http://localhost:3000/auth/login", user)
+    apiClient
+      .post("auth/login", user)
       .then((res) => {
         if (res.data) navigate("/mytasks");
       })

@@ -1,21 +1,21 @@
-import { Button, HStack, Image } from "@chakra-ui/react";
-import { Link } from "react-router-dom";
-import logo from "../images/logo.svg";
+import { Button, ButtonGroup, HStack, Image } from "@chakra-ui/react";
+import { Link, NavLink } from "react-router-dom";
+import logo from "../assets/logo.svg";
 
 const Navbar = () => {
   return (
-    <HStack justifyContent="space-between" paddingX={16} paddingY={5}>
+    <HStack paddingX={10} paddingY={5} justifyContent="space-between">
       <Link to="/">
         <Image src={logo} width={12} />
       </Link>
-      <HStack columnGap={5}>
+      <ButtonGroup>
         <Button colorScheme="gray">
-          <Link to="/login">Login</Link>
+          <NavLink to="/login">Login</NavLink>
         </Button>
         <Button colorScheme="green">
-          <Link to="/register">Register</Link>
+          <NavLink to="/register">Register</NavLink>
         </Button>
-      </HStack>
+      </ButtonGroup>
     </HStack>
   );
 };

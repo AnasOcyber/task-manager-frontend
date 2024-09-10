@@ -14,7 +14,7 @@ import {
   Text,
   useDisclosure,
 } from "@chakra-ui/react";
-import axios from "axios";
+import apiClient from "../services/apiClient";
 
 interface Props {
   id: number;
@@ -26,8 +26,8 @@ const TaskBox = ({ id, title, description }: Props) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   const handleClick = () => {
-    axios
-      .delete("http://localhost:3000/tasks/" + id)
+    apiClient
+      .delete("tasks/" + id)
       .then((res) => console.log(res.data))
       .catch((err) => console.log(err));
     onClose();
@@ -53,10 +53,17 @@ const TaskBox = ({ id, title, description }: Props) => {
           </ModalFooter>
         </ModalContent>
       </Modal>
-      <Box w="100%" p={4} rounded="lg" ring={1} width={500} maxWidth={800}>
+      <Box
+        w="100%"
+        p={4}
+        rounded="lg"
+        ring={1}
+        width={{ base: 450, lg: 500 }}
+        maxWidth={800}
+      >
         <HStack justifyContent="space-between" gap={10}>
           <Box>
-            <Heading fontSize={18} fontWeight="semibold">
+            <Heading fontSize={{ base: 16, lg: 18 }} fontWeight="semibold">
               {title}
             </Heading>
             <Text>{description}</Text>
