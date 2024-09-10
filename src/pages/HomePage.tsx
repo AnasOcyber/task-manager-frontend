@@ -1,12 +1,13 @@
-import { Heading, VStack } from "@chakra-ui/react";
+import { Button, Heading, VStack } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
 
 const HomePage = () => {
   return (
     <VStack>
       <Heading>Task Manager</Heading>
-      <Link to="/login">Login</Link>
-      <Link to="/register">Register</Link>
+      <Button colorScheme="green">
+        <Link to="/register">Get Started</Link>
+      </Button>
     </VStack>
   );
 };
