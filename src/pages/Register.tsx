@@ -28,7 +28,7 @@ const Register = () => {
     axios
       .post("http://localhost:3000/auth/register", user)
       .then((res) => {
-        if (res.data) navigate("/");
+        if (res.data) navigate("/mytasks");
       })
       .catch((err) => console.error(err));
   };
