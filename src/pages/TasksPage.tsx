@@ -1,19 +1,17 @@
 import {
-  List,
-  ListItem,
   Tab,
   TabList,
   TabPanel,
   TabPanels,
   Tabs,
-  UnorderedList,
   VStack,
 } from "@chakra-ui/react";
+import CreateTaskModal from "../components/CreateTaskModal";
 import TaskBox from "../components/TaskBox";
 
 const TasksPage = () => {
   return (
-    <VStack>
+    <VStack gap={5}>
       <Tabs variant="soft-rounded" colorScheme="green" isFitted>
         <TabList>
           <Tab>Pending</Tab>
@@ -33,6 +31,7 @@ const TasksPage = () => {
           </TabPanel>
         </TabPanels>
       </Tabs>
+      <CreateTaskModal />
     </VStack>
   );
 };
