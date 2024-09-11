@@ -28,6 +28,7 @@ const LoginPage = () => {
       .post("auth/login", user)
       .then((res) => {
         if (res.data) {
+          sessionStorage.setItem("AccessToken", res.data.access_token);
           navigate("/mytasks");
         }
       })

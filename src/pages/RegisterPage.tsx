@@ -29,7 +29,7 @@ const RegisterPage = () => {
     apiClient
       .post("auth/register", user)
       .then((res) => {
-        if (res.data) navigate("/mytasks");
+        if (res.data) navigate("/login");
       })
       .catch((err) => setError(err.response.data.message));
   };
@@ -46,7 +46,7 @@ const RegisterPage = () => {
             <FormLabel>Email address</FormLabel>
             <Input type="email" ref={emailRef} />
           </FormControl>
-          <FormControl marginBottom={5}>
+          <FormControl marginBottom={3}>
             <FormLabel>Password</FormLabel>
             <Input type="password" ref={passwordRef} />
           </FormControl>

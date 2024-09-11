@@ -7,6 +7,7 @@ import {
   VStack,
 } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import CreateTask from "../components/CreateTask";
 import TaskBox from "../components/TaskBox";
 import apiClient from "../services/apiClient";
@@ -20,13 +21,21 @@ interface Task {
 
 const TasksPage = () => {
   const [tasks, setTasks] = useState<Task[]>([]);
-
+  const navigate = useNavigate();
   const completedTasks = tasks.filter((t) => !t.isCompleted);
   const pendingTasks = tasks.filter((t) => t.isCompleted);
 
   useEffect(() => {
+    const token = sessionStorage.getItem("AccessToken");
+
+    if (!token) navigate("/login");
+
     apiClient
-      .get("tasks")
+      .get("tasks", {
+        headers: {
+          Authorization: "Bearer " + token,
+        },
+      })
       .then((res) => setTasks(res.data))
       .catch((err) => console.error(err));
   }, []);
