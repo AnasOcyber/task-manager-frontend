@@ -23,13 +23,16 @@ const CreateTask = () => {
 
   const handleClick = () => {
     const task = {
-      userId: sessionStorage.getItem("userId"),
       title: titleRef.current?.value,
       description: descriptionRef.current?.value,
     };
 
     apiClient
-      .post("tasks", task)
+      .post("tasks", task, {
+        headers: {
+          Authorization: "Bearer " + sessionStorage.getItem("AccessToken"),
+        },
+      })
       .then((res) => console.log(res.data))
       .catch((err) => console.error(err));
 

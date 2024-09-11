@@ -27,7 +27,11 @@ const TaskBox = ({ id, title, description }: Props) => {
 
   const handleClick = () => {
     apiClient
-      .delete("tasks/" + id)
+      .delete("tasks/" + id, {
+        headers: {
+          Authorization: "Bearer " + sessionStorage.getItem("AccessToken"),
+        },
+      })
       .then((res) => console.log(res.data))
       .catch((err) => console.log(err));
     onClose();
