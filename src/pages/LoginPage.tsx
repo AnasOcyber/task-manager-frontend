@@ -6,13 +6,15 @@ import {
   Text,
   VStack,
 } from "@chakra-ui/react";
-import { FormEvent, useRef } from "react";
+import { FormEvent, useRef, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import apiClient from "../services/apiClient";
 
 const LoginPage = () => {
   const emailRef = useRef<HTMLInputElement>(null);
   const passwordRef = useRef<HTMLInputElement>(null);
+  const [error, setError] = useState("");
+
   const navigate = useNavigate();
 
   const handleSubmit = (e: FormEvent) => {
@@ -25,9 +27,11 @@ const LoginPage = () => {
     apiClient
       .post("auth/login", user)
       .then((res) => {
-        if (res.data) navigate("/mytasks");
+        if (res.data) {
+          navigate("/mytasks");
+        }
       })
-      .catch((err) => console.error(err));
+      .catch(({ response }) => setError(response.data.message));
   };
 
   return (
@@ -38,10 +42,15 @@ const LoginPage = () => {
             <FormLabel>Email address</FormLabel>
             <Input type="email" ref={emailRef} />
           </FormControl>
-          <FormControl marginBottom={5}>
+          <FormControl marginBottom={3}>
             <FormLabel>Password</FormLabel>
             <Input type="password" ref={passwordRef} />
           </FormControl>
+          {error && (
+            <Text color="red" marginBottom={5} alignSelf="flex-start">
+              {error}
+            </Text>
+          )}
           <Button type="submit" colorScheme="green">
             Log in
           </Button>

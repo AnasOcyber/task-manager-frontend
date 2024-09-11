@@ -6,7 +6,7 @@ import {
   Text,
   VStack,
 } from "@chakra-ui/react";
-import { FormEvent, useRef } from "react";
+import { FormEvent, useRef, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import apiClient from "../services/apiClient";
 
@@ -14,6 +14,7 @@ const RegisterPage = () => {
   const nameRef = useRef<HTMLInputElement>(null);
   const emailRef = useRef<HTMLInputElement>(null);
   const passwordRef = useRef<HTMLInputElement>(null);
+  const [error, setError] = useState("");
 
   const navigate = useNavigate();
 
@@ -30,7 +31,7 @@ const RegisterPage = () => {
       .then((res) => {
         if (res.data) navigate("/mytasks");
       })
-      .catch((err) => console.error(err));
+      .catch((err) => setError(err.response.data.message));
   };
 
   return (
@@ -49,6 +50,11 @@ const RegisterPage = () => {
             <FormLabel>Password</FormLabel>
             <Input type="password" ref={passwordRef} />
           </FormControl>
+          {error && (
+            <Text color="red" marginBottom={5} alignSelf="flex-start">
+              {error}
+            </Text>
+          )}
           <Button type="submit" colorScheme="green">
             Create Account
           </Button>
