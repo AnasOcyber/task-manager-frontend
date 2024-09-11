@@ -4,6 +4,7 @@ import {
   TabPanel,
   TabPanels,
   Tabs,
+  Text,
   VStack,
 } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
@@ -11,6 +12,7 @@ import { useNavigate } from "react-router-dom";
 import CreateTask from "../components/CreateTask";
 import TaskBox from "../components/TaskBox";
 import apiClient from "../services/apiClient";
+import { AxiosError } from "axios";
 
 interface Task {
   id: number;
@@ -22,6 +24,7 @@ interface Task {
 const TasksPage = () => {
   const [tasks, setTasks] = useState<Task[]>([]);
   const navigate = useNavigate();
+  const [error, setError] = useState("");
   const completedTasks = tasks.filter((t) => !t.isCompleted);
   const pendingTasks = tasks.filter((t) => t.isCompleted);
 
@@ -37,7 +40,9 @@ const TasksPage = () => {
         },
       })
       .then((res) => setTasks(res.data))
-      .catch((err) => console.error(err));
+      .catch((err) => {
+        if (err instanceof AxiosError) setError(err.response?.data.message);
+      });
   }, []);
 
   return (
@@ -47,6 +52,7 @@ const TasksPage = () => {
           <Tab>Pending</Tab>
           <Tab>Completed</Tab>
         </TabList>
+        {error && <Text marginTop={5}>{error}</Text>}
         <TabPanels>
           <TabPanel>
             <VStack>

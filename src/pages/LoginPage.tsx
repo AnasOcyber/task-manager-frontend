@@ -9,11 +9,13 @@ import {
 import { FormEvent, useRef, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import apiClient from "../services/apiClient";
+import { useAuth } from "../contexts/AuthContext";
 
 const LoginPage = () => {
   const emailRef = useRef<HTMLInputElement>(null);
   const passwordRef = useRef<HTMLInputElement>(null);
   const [error, setError] = useState("");
+  const { login } = useAuth();
 
   const navigate = useNavigate();
 
@@ -29,6 +31,7 @@ const LoginPage = () => {
       .then((res) => {
         if (res.data) {
           sessionStorage.setItem("AccessToken", res.data.access_token);
+          login();
           navigate("/mytasks");
         }
       })

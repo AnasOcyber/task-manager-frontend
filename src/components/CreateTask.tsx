@@ -13,8 +13,8 @@ import {
   Textarea,
   useDisclosure,
 } from "@chakra-ui/react";
-import axios from "axios";
 import { useRef } from "react";
+import apiClient from "../services/apiClient";
 
 const CreateTask = () => {
   const titleRef = useRef<HTMLInputElement>(null);
@@ -23,12 +23,13 @@ const CreateTask = () => {
 
   const handleClick = () => {
     const task = {
+      userId: sessionStorage.getItem("userId"),
       title: titleRef.current?.value,
       description: descriptionRef.current?.value,
     };
 
-    axios
-      .post("http://localhost:3000/tasks", task)
+    apiClient
+      .post("tasks", task)
       .then((res) => console.log(res.data))
       .catch((err) => console.error(err));
 
