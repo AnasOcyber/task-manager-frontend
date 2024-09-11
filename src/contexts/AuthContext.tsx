@@ -17,7 +17,8 @@ interface Props {
 }
 
 export function AuthProvider({ children }: Props) {
-  const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
+  const hasToken = !!sessionStorage.getItem("AccessToken");
+  const [isAuthenticated, setIsAuthenticated] = useState<boolean>(hasToken);
 
   const login = () => setIsAuthenticated(true);
   const logout = () => setIsAuthenticated(false);
